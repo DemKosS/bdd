@@ -3,20 +3,21 @@ package page;
 import com.codeborne.selenide.SelenideElement;
 import data.DataHelper;
 
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class VerificationPage {
-    private SelenideElement codeField = $("[data-test-id=code] input");
-    private SelenideElement verifyButton = $("[data-test-id=action-verify]");
+    public SelenideElement verification = $("[data-test-id=code] input");
+    public SelenideElement codeInput = $("[data-test-id=code] input");
+    public SelenideElement buttonVerify = $("[data-test-id=action-verify]");
 
     public VerificationPage() {
-        codeField.shouldBe(visible);
+        verification.shouldBe(visible);
     }
 
-    public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
-        codeField.setValue(verificationCode.getCode());
-        verifyButton.click();
-        return new DashboardPage();
+    public void validVerify(DataHelper.VerificationCode verificationCode) {
+        codeInput.setValue(verificationCode.getCodeForVerification());
+        buttonVerify.click();
     }
 }

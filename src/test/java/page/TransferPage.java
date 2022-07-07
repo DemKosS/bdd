@@ -1,20 +1,24 @@
 package page;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.Keys;
+import data.DataHelper;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class TransferPage {
+    public SelenideElement amountInput = $("[data-test-id=amount] input");
+    public SelenideElement cardFromInput = $("[data-test-id=from] input");
+    public SelenideElement buttonTransferAction = $("[data-test-id=action-transfer]");
 
-    private SelenideElement totField = $(".money-input .input__control");
-    private SelenideElement sourceCardField = $("[data-test-id='from'] .input__control");
-    private SelenideElement addFundsButton = $("[data-test-id='action-transfer'] .button__text");
-    private SelenideElement cancelButton = $("[data-test-id='action-cancel'] .button__text");
+    public void transferFromSecondToFirst(DataHelper.CardsInfo info, int transfer) {
+        amountInput.setValue(String.valueOf(transfer));
+        cardFromInput.setValue(info.getNumberOfCard());
+        buttonTransferAction.click();
+    }
 
-    public void transaction(String value, String source) {
-        totField.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE, value.replace(" ", ""));
-        sourceCardField.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE, source.replace(" ", ""));
-        addFundsButton.click();
+    public void transferFromFirstToSecond(DataHelper.CardsInfo info, int transfer) {
+        amountInput.setValue(String.valueOf(transfer));
+        cardFromInput.setValue(info.getNumberOfCard());
+        buttonTransferAction.click();
     }
 }
