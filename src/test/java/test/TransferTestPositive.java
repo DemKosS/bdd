@@ -25,6 +25,7 @@ public class TransferTestPositive {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/data.csv")
+
     void shouldTransferMoneyFromSecondToFirst(int transfer) {
 
         val dashboardPage = new DashboardPage();
@@ -40,9 +41,9 @@ public class TransferTestPositive {
         assertEquals(balanceFirstCard, dashboardPage.getBalanceOfFirstCard());
         assertEquals(balanceSecondCard, dashboardPage.getBalanceOfSecondCard());
     }
-
     @ParameterizedTest
     @CsvFileSource(resources = "/data.csv")
+
     void shouldTransferMoneyFromFirstToSecond(int transfer) {
 
         val dashboardPage = new DashboardPage();
