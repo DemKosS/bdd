@@ -6,11 +6,14 @@ branches:
   only:
     - master  # ветка git
 
-build: off  # будем использовать свой скрипт сборки
+build: off
 
 install:
-  # запускаем SUT (& означает, что в фоновом режиме - не блокируем терминал для запуска тестов)
-  - java -jar ./artifacts/app-ibank-build-for-testers.jar &
+  - ps: $App = Start-Process -FilePath java -ArgumentList "-jar artifacts/app-ibank-build-for-testers.jar" -PassThru
 
 build_script:
-  - ./gradlew test --info  # запускаем тест, флаг --info позволяет выводить больше информации
+  - ps: chmod +x gradlew
+  - ps: ./gradlew test --info "-Dselenide.headless=true"
+
+on_finish:
+  - ps: Stop-Process -Id $App.Id
